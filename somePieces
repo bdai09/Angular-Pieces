@@ -1,0 +1,52 @@
+	<div class="example-header">
+		<mat-form-field>
+			<input matInput #filter (keyup.enter)="search($event.target.value)" placeholder="Filter">
+      <button mat-icon-button matSuffix aria-label="clear" *ngIf="!isEntered" 
+      (click)="search(filter.value);">
+        <mat-icon>search</mat-icon>
+      </button>
+
+			<button mat-icon-button matSuffix aria-label="clear" *ngIf="isEntered" (click)="filter.value=''; search('');">
+        <mat-icon>close</mat-icon>
+      </button>
+		</mat-form-field>
+	</div>
+
+  	<button mat-icon-button matSuffix aria-label="clear"  (click)="applyFilter()">
+        <mat-icon>filter</mat-icon>
+    </button>
+
+<mat-form-field>
+  <mat-select placeholder="Sort by" [(value)]="selected" (change)="onFoodSelection1()">
+    <mat-option value="abc">
+      abc
+    </mat-option>
+    <mat-option value="def">
+      def
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+    
+    
+    
+    
+    
+ export class TableEditingExample {
+  displayedColumns = ['position', 'name', 'weight', 'symbol', 'fav'];
+  dataSource = new MatTableDataSource(ELEMENT_DATA);
+isEntered=false;
+
+  search(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+    this.isEntered=!this.isEntered;
+  }
+  applyFilter(filterValue: string) {
+   this.dataSource.filter = 'y';
+  }
+
+  onFoodSelection1() {
+    this.dataSource.filter = 'y';
+  }
+}
